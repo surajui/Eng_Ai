@@ -1,0 +1,50 @@
+<div class="container">
+    <h3 class="text-center text-success">Engineering Ai</h3>
+    <div class="row">
+        <!-- Filter data by using Title -->
+        <div class="col-12">
+            <input type="text" class="form-control my-3" [(ngModel)]="SearchText" placeholder="Search by tilte">
+        </div>
+        <!-- Display data into table format -->
+        <div class="col-12">
+            <table class="table-bordered table-striped">
+                <thead class="bg-info text-center text-white">
+                    <tr>
+                        <th>Title</th>
+                        <th>Url</th>
+                        <th>Created_at</th>
+                        <th>Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Data of Result | filter:SearchText" (click)="modelData(Data)" data-toggle="modal"
+                        data-target="#myModal">
+                        <td>{{ Data.title }}</td>
+                        <td>{{ Data.url }}</td>
+                        <td>{{ Data.created_at }}</td>
+                        <td>{{ Data.author }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4 class="text-danger text-center" *ngIf="(Result | filter:SearchText)?.length == 0"> Data is not found
+            </h4>
+        </div>
+        <!-- Display Rawjson data into modelpopup -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog  modal-xl ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Raw Json data</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body  modal-centered">
+                        {{ Rawdata|json }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
